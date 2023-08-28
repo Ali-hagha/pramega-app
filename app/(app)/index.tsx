@@ -8,22 +8,13 @@ import { useQuery } from '@tanstack/react-query';
 import getNewProducts from '../../api/getNewProducts';
 
 export default function App() {
-  const { data } = useQuery({
-    queryKey: ['newProducts'],
-    queryFn: getNewProducts,
-  });
-
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen />
       <ScrollView>
         <Text style={styles.header}>Elevate Your Space</Text>
         <SearchBar />
-        {data ? (
-          <ProductsSlider title="New Arrivals" products={data} />
-        ) : (
-          <Text>Loading</Text>
-        )}
+        <ProductsSlider title="New Arrivals" getProducts={getNewProducts} />
       </ScrollView>
     </SafeAreaView>
   );

@@ -3,13 +3,20 @@ import React from 'react';
 import { COLORS, FONTS, SIZES } from '../constans';
 import { Product } from '../types/types';
 import ProductCard from './ProductCard';
+import { useQuery } from '@tanstack/react-query';
+import ProductCardSkeleton from './skeleton/ProductCardSkeleton';
 
 interface Props {
   title: string;
-  products: Product[];
+  getProducts: () => Promise<Product[]>;
 }
 
-const ProductsSlider = ({ title, products }: Props) => {
+const ProductsSlider = ({ title, getProducts }: Props) => {
+  const { data: products, isLoading } = useQuery({
+    queryKey: ['newProducts'],
+    queryFn: getProducts,
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{title}</Text>
@@ -18,9 +25,20 @@ const ProductsSlider = ({ title, products }: Props) => {
         overScrollMode="never"
         showsHorizontalScrollIndicator={false}
       >
-        {products.map((product, index) => (
-          <ProductCard key={product.id} product={product} index={index} />
-        ))}
+        {/* show products if loaded */}
+        {products &&
+          products.map((product, index) => (
+            <ProductCard key={product.id} product={product} index={index} />
+          ))}
+
+        {/* show skeleton if not loaded */}
+        {isLoading &&
+          !products &&
+          Array(3)
+            .fill(0)
+            .map((_, index) => (
+              <ProductCardSkeleton index={index} key={index} />
+            ))}
       </ScrollView>
     </View>
   );

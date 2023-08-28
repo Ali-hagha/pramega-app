@@ -14,8 +14,11 @@ import {
 } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 const RootLayout = () => {
   const [fontsLoaded, fontError] = useFonts({
@@ -41,9 +44,11 @@ const RootLayout = () => {
   }
 
   return (
-    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      <Slot />
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+        <Slot />
+      </View>
+    </QueryClientProvider>
   );
 };
 

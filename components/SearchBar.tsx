@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.md,
     color: COLORS.gray_700,
     flex: 1,
+    fontFamily: FONTS.Montserrat_400,
   },
   searchBtn: {
     padding: SIZES.xs,

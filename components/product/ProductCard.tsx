@@ -1,8 +1,8 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, SIZES } from '../constans';
-import { Product } from '../types/types';
-import { currencyFormatter } from '../helpers';
+import { COLORS, FONTS, SIZES } from '../../constans';
+import { Product } from '../../types/types';
+import { currencyFormatter } from '../../helpers';
 import { FontAwesome } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 

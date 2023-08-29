@@ -1,10 +1,10 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, SIZES } from '../constans';
-import { Product } from '../types/types';
+import { COLORS, FONTS, SIZES } from '../../constans';
+import { Product } from '../../types/types';
 import ProductCard from './ProductCard';
 import { useQuery } from '@tanstack/react-query';
-import ProductCardSkeleton from './skeleton/ProductCardSkeleton';
+import ProductCardSkeleton from '../skeleton/ProductCardSkeleton';
 
 interface Props {
   title: string;
@@ -12,7 +12,7 @@ interface Props {
   getProducts: () => Promise<Product[]>;
 }
 
-const ProductsSlider = ({ title, getProducts, queryKey }: Props) => {
+const ProductsHorizontalList = ({ title, getProducts, queryKey }: Props) => {
   const {
     data: products,
     isLoading,
@@ -48,7 +48,7 @@ const ProductsSlider = ({ title, getProducts, queryKey }: Props) => {
   );
 };
 
-export default ProductsSlider;
+export default ProductsHorizontalList;
 
 const styles = StyleSheet.create({
   container: {

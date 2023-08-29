@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, FONTS, SIZES } from '../../constans';
 import SearchBar from '../../components/SearchBar';
-import ProductsSlider from '../../components/ProductsSlider';
+import ProductsHorizontalList from '../../components/product/ProductsHorizontalList';
 import getNewProducts from '../../api/getNewProducts';
 import getFavoriteProducts from '../../api/getFavoriteProducts';
 import getOnSaleProducts from '../../api/getOnSaleProducts';
@@ -15,17 +15,17 @@ export default function App() {
       <ScrollView>
         <Text style={styles.header}>Elevate Your Space</Text>
         <SearchBar />
-        <ProductsSlider
+        <ProductsHorizontalList
           title="New Arrivals"
           getProducts={getNewProducts}
           queryKey="newProducts"
         />
-        <ProductsSlider
+        <ProductsHorizontalList
           title="All Time Favorites"
           getProducts={getFavoriteProducts}
           queryKey="favoriteProducts"
         />
-        <ProductsSlider
+        <ProductsHorizontalList
           title="On Sale"
           getProducts={getOnSaleProducts}
           queryKey="onSaleProducts"

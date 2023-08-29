@@ -8,12 +8,17 @@ import ProductCardSkeleton from './skeleton/ProductCardSkeleton';
 
 interface Props {
   title: string;
+  queryKey: string;
   getProducts: () => Promise<Product[]>;
 }
 
-const ProductsSlider = ({ title, getProducts }: Props) => {
-  const { data: products, isLoading } = useQuery({
-    queryKey: ['newProducts'],
+const ProductsSlider = ({ title, getProducts, queryKey }: Props) => {
+  const {
+    data: products,
+    isLoading,
+    isSuccess,
+  } = useQuery({
+    queryKey: [queryKey],
     queryFn: getProducts,
   });
 
@@ -26,14 +31,13 @@ const ProductsSlider = ({ title, getProducts }: Props) => {
         showsHorizontalScrollIndicator={false}
       >
         {/* show products if loaded */}
-        {products &&
+        {isSuccess &&
           products.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
           ))}
 
         {/* show skeleton if not loaded */}
         {isLoading &&
-          !products &&
           Array(3)
             .fill(0)
             .map((_, index) => (

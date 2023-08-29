@@ -1,4 +1,4 @@
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import React from 'react';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,6 +8,7 @@ import { router } from 'expo-router';
 import { COLORS } from '../../../../../constans';
 import ProductImageGallery from '../../../../../components/product/ProductImageGallery';
 import ProductDetails from '../../../../../components/product/ProductDetails';
+import BackBtn from '../../../../../components/ui/BackBtn';
 
 const index = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -34,6 +35,7 @@ const index = () => {
       <Stack.Screen />
       {isSuccess && (
         <ScrollView>
+          <BackBtn />
           <ProductImageGallery images={product.attributes.imageGallery.data} />
           <ProductDetails product={product} />
         </ScrollView>

@@ -33,7 +33,7 @@ export interface FavoriteProductsType {
   };
 }
 
-interface StrapiImage {
+export interface StrapiImage {
   attributes: {
     url: string;
     formats: {

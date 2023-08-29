@@ -11,12 +11,21 @@ interface Props {
   index: number;
 }
 
-const ProductCard = ({ product: { attributes }, index }: Props) => {
+const ProductCard = ({ product: { attributes, id }, index }: Props) => {
   const strapiUrl = process.env.EXPO_PUBLIC_STRAPI_URL;
   const imgUrl = `${strapiUrl}${attributes.primaryImage.data.attributes.formats.small.url}`;
   return (
     <View style={{ ...styles.card, marginStart: index === 0 ? SIZES.md : 0 }}>
-      <Link href={`products/${attributes.category}/${attributes.productId}`}>
+      <Link
+        href={{
+          pathname: '/products/[category]/[productId]',
+          params: {
+            category: attributes.category,
+            productId: attributes.productId,
+            id,
+          },
+        }}
+      >
         <View>
           <Image
             source={{

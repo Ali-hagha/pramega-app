@@ -5,10 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import getProductById from '../../../../../api/getProductById';
 import { router } from 'expo-router';
-import { COLORS } from '../../../../../constans';
+import { COLORS, SIZES } from '../../../../../constans';
 import ProductImageGallery from '../../../../../components/product/ProductImageGallery';
 import ProductDetails from '../../../../../components/product/ProductDetails';
 import BackBtn from '../../../../../components/ui/BackBtn';
+import AddProductToCartForm from '../../../../../components/product/AddProductToCartForm';
 
 const index = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -35,11 +36,13 @@ const index = () => {
       <Stack.Screen />
       <BackBtn />
       {isSuccess && (
-        <ScrollView style={{ paddingTop: 0 }}>
+        <ScrollView>
           <ProductImageGallery images={product.attributes.imageGallery.data} />
           <ProductDetails product={product} />
+          <View style={styles.filler}></View>
         </ScrollView>
       )}
+      <AddProductToCartForm />
     </View>
   );
 };
@@ -50,5 +53,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
     flex: 1,
+  },
+  filler: {
+    padding: SIZES.xxl,
   },
 });

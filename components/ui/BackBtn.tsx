@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
     position: 'absolute',
-    top: 24,
+    top: 32,
     left: 0,
     right: 0,
     zIndex: 20,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../../constans';
@@ -7,23 +7,33 @@ import { router } from 'expo-router';
 
 const BackBtn = () => {
   return (
-    <TouchableOpacity
-      style={styles.btn}
-      activeOpacity={0.7}
-      onPress={router.back}
-    >
-      <FontAwesome5
-        name="chevron-left"
-        size={SIZES.lg}
-        color={COLORS.gray_700}
-      />
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.btn}
+        activeOpacity={0.6}
+        onPress={router.back}
+      >
+        <FontAwesome5
+          name="chevron-left"
+          size={SIZES.lg}
+          color={COLORS.gray_500}
+        />
+      </TouchableOpacity>
+    </View>
   );
 };
 
 export default BackBtn;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 24,
+    left: 0,
+    right: 0,
+    zIndex: 20,
+  },
   btn: {
     padding: SIZES.xs,
     alignItems: 'center',
@@ -35,5 +45,8 @@ const styles = StyleSheet.create({
     width: 48,
     marginStart: SIZES.md,
     marginVertical: SIZES.xxs,
+
+    borderWidth: 3,
+    borderColor: COLORS.gray_200,
   },
 });

@@ -31,16 +31,16 @@ const index = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen />
+      <BackBtn />
       {isSuccess && (
-        <ScrollView>
-          <BackBtn />
+        <ScrollView style={{ paddingTop: 0 }}>
           <ProductImageGallery images={product.attributes.imageGallery.data} />
           <ProductDetails product={product} />
         </ScrollView>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 

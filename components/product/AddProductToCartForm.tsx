@@ -6,7 +6,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 const AddProductToCartForm = () => {
-  const [productCount, setProductCount] = useState(0);
+  const [productCount, setProductCount] = useState(1);
 
   const handleIncrement = () => {
     setProductCount(prevCount => {

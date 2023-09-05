@@ -15,6 +15,7 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import BottomNav from '../components/ui/BottomNav/BottomNav';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,6 +48,7 @@ const RootLayout = () => {
     <QueryClientProvider client={queryClient}>
       <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
         <Slot />
+        <BottomNav />
       </View>
     </QueryClientProvider>
   );

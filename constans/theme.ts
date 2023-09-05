@@ -37,6 +37,7 @@ const COLORS = {
   gray_800: '#1f2937',
   gray_900: '#111827',
   amber_400: '#fbbf24',
+  primary: '#ebfc4b',
 } as const;
 
 export { SIZES, FONTS, COLORS };

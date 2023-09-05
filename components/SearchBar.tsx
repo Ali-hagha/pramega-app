@@ -26,7 +26,7 @@ function SearchBar() {
         activeOpacity={0.7}
         onPress={handleSearchSubmit}
       >
-        <Feather name="search" size={SIZES.lg} color={COLORS.white} />
+        <Feather name="search" size={SIZES.xl} color={COLORS.gray_700} />
       </TouchableOpacity>
     </View>
   );
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     padding: SIZES.xs,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.gray_700,
+    backgroundColor: COLORS.primary,
     marginStart: SIZES.xs,
     borderRadius: SIZES.xs,
     color: 'white',

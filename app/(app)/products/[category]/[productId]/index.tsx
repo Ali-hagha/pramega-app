@@ -10,6 +10,7 @@ import ProductImageGallery from '../../../../../components/product/ProductImageG
 import ProductDetails from '../../../../../components/product/ProductDetails';
 import BackBtn from '../../../../../components/ui/BackBtn';
 import AddProductToCartForm from '../../../../../components/product/AddProductToCartForm';
+import ProductDetailPageSkeleton from '../../../../../components/skeleton/ProductDetailPageSkeleton';
 
 const index = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -27,8 +28,8 @@ const index = () => {
     queryFn: () => getProductById(id),
   });
 
-  if (!product) {
-    return <Text>loading</Text>;
+  if (isLoading) {
+    return <ProductDetailPageSkeleton />;
   }
 
   return (

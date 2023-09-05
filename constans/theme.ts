@@ -10,6 +10,7 @@ const SIZES = {
   lg: 20,
   xl: 24,
   xxl: 32,
+  xxxl: 40,
 } as const;
 
 const FONTS = {

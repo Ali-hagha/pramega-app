@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import getAllProducts from '../../../api/getAllProducts';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import ProductCardSmall from '../../../components/product/ProductCardSmall';
+import ProductCardSkeletonSmall from '../../../components/skeleton/ProductCardSkeletonSmall';
 
 const Products = () => {
   const {
@@ -19,16 +20,33 @@ const Products = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={products}
-        renderItem={({ item }) => <ProductCardSmall product={item} />}
-        keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.scrollContentContainer}
-        numColumns={2}
-        columnWrapperStyle={{
-          justifyContent: 'space-around',
-        }}
-      />
+      {isSuccess && (
+        <FlatList
+          data={products}
+          renderItem={({ item }) => <ProductCardSmall product={item} />}
+          keyExtractor={item => item.id.toString()}
+          contentContainerStyle={styles.scrollContentContainer}
+          numColumns={2}
+          columnWrapperStyle={{
+            justifyContent: 'space-around',
+          }}
+          overScrollMode="never"
+        />
+      )}
+      {/* show skeleton if not loaded */}
+      {isLoading && (
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6]}
+          renderItem={({ item }) => <ProductCardSkeletonSmall />}
+          keyExtractor={item => item.toString()}
+          contentContainerStyle={styles.scrollContentContainer}
+          numColumns={2}
+          columnWrapperStyle={{
+            justifyContent: 'space-around',
+          }}
+          overScrollMode="never"
+        />
+      )}
     </SafeAreaView>
   );
 };

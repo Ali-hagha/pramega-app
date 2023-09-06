@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../constans';
+import { COLORS, SIZES } from '../../../constans';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import getAllProducts from '../../../api/getAllProducts';
-import { ScrollView } from 'react-native-gesture-handler';
-import ProductCard from '../../../components/product/ProductCard';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import ProductCardSmall from '../../../components/product/ProductCardSmall';
 
 const Products = () => {
   const {
@@ -19,17 +19,16 @@ const Products = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
+      <FlatList
+        data={products}
+        renderItem={({ item }) => <ProductCardSmall product={item} />}
+        keyExtractor={item => item.id.toString()}
+        contentContainerStyle={styles.scrollContentContainer}
+        numColumns={2}
+        columnWrapperStyle={{
+          justifyContent: 'space-around',
         }}
-      >
-        {isSuccess &&
-          products.map(product => {
-            return <ProductCard key={product.id} product={product} index={0} />;
-          })}
-      </ScrollView>
+      />
     </SafeAreaView>
   );
 };
@@ -40,5 +39,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
     flex: 1,
+  },
+  scrollContentContainer: {
+    paddingVertical: SIZES.md,
+    paddingHorizontal: SIZES.xxxxs,
+    gap: SIZES.xxs,
   },
 });

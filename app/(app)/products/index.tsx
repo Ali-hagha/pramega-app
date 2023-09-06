@@ -1,12 +1,13 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { COLORS, SIZES } from '../../../constans';
+import { COLORS, FONTS, SIZES } from '../../../constans';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import getAllProducts from '../../../api/getAllProducts';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import ProductCardSmall from '../../../components/product/ProductCardSmall';
 import ProductCardSkeletonSmall from '../../../components/skeleton/ProductCardSkeletonSmall';
+import FilterModalBtn from '../../../components/ui/FilterModalBtn';
 
 const Products = () => {
   const {
@@ -20,6 +21,10 @@ const Products = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.headerWrapper}>
+        <Text style={styles.header}>Products</Text>
+        <FilterModalBtn />
+      </View>
       {isSuccess && (
         <FlatList
           data={products}
@@ -62,5 +67,16 @@ const styles = StyleSheet.create({
     paddingVertical: SIZES.md,
     paddingHorizontal: SIZES.xxxxs,
     gap: SIZES.xxs,
+  },
+  headerWrapper: {
+    padding: SIZES.xxs,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  header: {
+    fontFamily: FONTS.Montserrat_700,
+    fontSize: SIZES.xl,
+    color: COLORS.gray_700,
   },
 });

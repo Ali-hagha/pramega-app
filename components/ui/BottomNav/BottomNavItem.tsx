@@ -66,6 +66,6 @@ export default BottomNavItem;
 const styles = StyleSheet.create({
   btn: {
     borderRadius: SIZES.md,
-    padding: SIZES.md,
+    padding: SIZES.smp,
   },
 });

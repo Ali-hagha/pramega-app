@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, SIZES } from '../../constans';
 import { Product } from '../../types/types';
@@ -25,25 +25,32 @@ const ProductsHorizontalList = ({ title, getProducts, queryKey }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{title}</Text>
-      <ScrollView
-        horizontal={true}
-        overScrollMode="never"
-        showsHorizontalScrollIndicator={false}
-      >
-        {/* show products if loaded */}
-        {isSuccess &&
-          products.map((product, index) => (
-            <ProductCard key={product.id} product={product} index={index} />
-          ))}
-
-        {/* show skeleton if not loaded */}
-        {isLoading &&
-          Array(3)
+      {isSuccess && (
+        <FlatList
+          data={products}
+          renderItem={({ item, index }) => (
+            <ProductCard product={item} index={index} />
+          )}
+          keyExtractor={item => item.id.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          overScrollMode="never"
+        />
+      )}
+      {/* show skeleton if not loaded */}
+      {isLoading && (
+        <ScrollView
+          horizontal={true}
+          overScrollMode="never"
+          showsHorizontalScrollIndicator={false}
+        >
+          {Array(3)
             .fill(0)
             .map((_, index) => (
               <ProductCardSkeleton index={index} key={index} />
             ))}
-      </ScrollView>
+        </ScrollView>
+      )}
     </View>
   );
 };

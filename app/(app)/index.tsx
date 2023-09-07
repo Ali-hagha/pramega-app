@@ -11,7 +11,6 @@ import getOnSaleProducts from '../../api/getOnSaleProducts';
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <Stack.Screen />
       <ScrollView>
         <Text style={styles.header}>Elevate Your Space</Text>
         <SearchBar />

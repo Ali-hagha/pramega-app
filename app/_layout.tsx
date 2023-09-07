@@ -47,8 +47,7 @@ const RootLayout = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        <Slot />
-        <BottomNav />
+        <Stack screenOptions={{ headerShown: false, animation: 'default' }} />
       </View>
     </QueryClientProvider>
   );

@@ -52,3 +52,12 @@ export interface StrapiImage {
     };
   };
 }
+
+export interface MetaData {
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+}

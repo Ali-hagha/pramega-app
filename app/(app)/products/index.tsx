@@ -1,23 +1,40 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, SIZES } from '../../../constans';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import getAllProducts from '../../../api/getAllProducts';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 import ProductCardSmall from '../../../components/product/ProductCardSmall';
 import ProductCardSkeletonSmall from '../../../components/skeleton/ProductCardSkeletonSmall';
 import FilterModalBtn from '../../../components/ui/FilterModalBtn';
 
 const Products = () => {
   const {
-    data: products,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
     isLoading,
     isSuccess,
-  } = useQuery({
+  } = useInfiniteQuery({
     queryKey: ['allProducts'],
     queryFn: getAllProducts,
+    refetchOnMount: true,
+    getNextPageParam: (lastPage, pages) => {
+      const pagination = lastPage.metaData.pagination;
+      if (pagination.page < pagination.pageCount) {
+        return pagination.page + 1;
+      }
+      return undefined;
+    },
   });
+
+  const handleEndReached = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,7 +44,7 @@ const Products = () => {
       </View>
       {isSuccess && (
         <FlatList
-          data={products}
+          data={data.pages.map(page => page.products).flat() ?? []}
           renderItem={({ item }) => <ProductCardSmall product={item} />}
           keyExtractor={item => item.id.toString()}
           contentContainerStyle={styles.scrollContentContainer}
@@ -36,6 +53,17 @@ const Products = () => {
             justifyContent: 'space-around',
           }}
           overScrollMode="never"
+          onEndReached={handleEndReached}
+          onEndReachedThreshold={0.2}
+          ListFooterComponent={
+            hasNextPage ? (
+              <ActivityIndicator
+                size="large"
+                color={COLORS.gray_500}
+                style={styles.spinner}
+              />
+            ) : null
+          }
         />
       )}
       {/* show skeleton if not loaded */}
@@ -78,5 +106,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.Montserrat_700,
     fontSize: SIZES.xl,
     color: COLORS.gray_700,
+  },
+  spinner: {
+    paddingVertical: SIZES.md,
   },
 });

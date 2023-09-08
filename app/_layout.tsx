@@ -1,5 +1,5 @@
-import { Slot, Stack } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Stack } from 'expo-router';
+import { View } from 'react-native';
 import {
   useFonts,
   Montserrat_100Thin as Montserrat_100,
@@ -15,7 +15,6 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import BottomNav from '../components/ui/BottomNav/BottomNav';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,7 +46,14 @@ const RootLayout = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        <Stack screenOptions={{ headerShown: false, animation: 'default' }} />
+        <Stack screenOptions={{ headerShown: false, animation: 'none' }}>
+          <Stack.Screen
+            name="(aux)/filterModal"
+            options={{
+              presentation: 'transparentModal',
+            }}
+          />
+        </Stack>
       </View>
     </QueryClientProvider>
   );

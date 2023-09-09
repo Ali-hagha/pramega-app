@@ -9,7 +9,7 @@ import ProductCardSmall from '../../../components/product/ProductCardSmall';
 import ProductCardSkeletonSmall from '../../../components/skeleton/ProductCardSkeletonSmall';
 import FilterBottomSheetBtn from '../../../components/ui/FilterBottomSheetBtn';
 
-const Products = () => {
+const ProductsPage = () => {
   const {
     data,
     fetchNextPage,
@@ -84,7 +84,7 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductsPage;
 
 const styles = StyleSheet.create({
   container: {

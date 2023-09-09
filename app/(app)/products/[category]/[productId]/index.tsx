@@ -12,7 +12,7 @@ import BackBtn from '../../../../../components/ui/BackBtn';
 import AddProductToCartForm from '../../../../../components/product/AddProductToCartForm';
 import ProductDetailPageSkeleton from '../../../../../components/skeleton/ProductDetailPageSkeleton';
 
-const index = () => {
+const ProductDetailsPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   if (!id) {
@@ -48,7 +48,7 @@ const index = () => {
   );
 };
 
-export default index;
+export default ProductDetailsPage;
 
 const styles = StyleSheet.create({
   container: {

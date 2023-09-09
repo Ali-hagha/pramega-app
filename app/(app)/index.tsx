@@ -8,7 +8,7 @@ import getNewProducts from '../../api/getNewProducts';
 import getFavoriteProducts from '../../api/getFavoriteProducts';
 import getOnSaleProducts from '../../api/getOnSaleProducts';
 
-export default function App() {
+export default function HomePage() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

@@ -7,7 +7,7 @@ import getAllProducts from '../../../api/getAllProducts';
 import { FlatList } from 'react-native-gesture-handler';
 import ProductCardSmall from '../../../components/product/ProductCardSmall';
 import ProductCardSkeletonSmall from '../../../components/skeleton/ProductCardSkeletonSmall';
-import FilterModalBtn from '../../../components/ui/FilterModalBtn';
+import FilterBottomSheetBtn from '../../../components/ui/FilterBottomSheetBtn';
 
 const Products = () => {
   const {
@@ -40,7 +40,7 @@ const Products = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerWrapper}>
         <Text style={styles.header}>Products</Text>
-        <FilterModalBtn />
+        <FilterBottomSheetBtn />
       </View>
       {isSuccess && (
         <FlatList

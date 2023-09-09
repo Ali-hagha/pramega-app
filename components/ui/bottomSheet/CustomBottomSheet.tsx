@@ -1,9 +1,13 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 
-const FilterModal = () => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const CustomBottomSheet = ({ children }: Props) => {
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -40,9 +44,7 @@ const FilterModal = () => {
         backdropComponent={renderBackdrop}
         enablePanDownToClose={true}
       >
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
-        </View>
+        {children}
       </BottomSheet>
     </View>
   );
@@ -51,13 +53,7 @@ const FilterModal = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
-    backgroundColor: 'transparent',
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
   },
 });
 
-export default FilterModal;
+export default CustomBottomSheet;

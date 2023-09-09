@@ -48,7 +48,7 @@ const RootLayout = () => {
       <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
         <Stack screenOptions={{ headerShown: false, animation: 'none' }}>
           <Stack.Screen
-            name="(aux)/filterModal"
+            name="(aux)/filterBottomSheet"
             options={{
               presentation: 'transparentModal',
             }}

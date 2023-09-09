@@ -61,3 +61,13 @@ export interface MetaData {
     total: number;
   };
 }
+
+export type Categories =
+  | 'all'
+  | 'chairs'
+  | 'storage'
+  | 'beds'
+  | 'sofas'
+  | 'tables';
+
+export type Featured = 'all' | 'sale' | 'new';

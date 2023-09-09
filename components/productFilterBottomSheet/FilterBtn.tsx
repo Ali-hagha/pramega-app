@@ -1,24 +1,28 @@
-import { StyleSheet, Text, TouchableOpacity, Pressable } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { Link } from 'expo-router';
 import { COLORS, FONTS, SIZES } from '../../constans';
 
 interface Props {
+  onPress: () => void;
+  isActive: boolean;
   title: string;
-  active: boolean;
 }
 
-const ProductFilterBtn = ({ title, active }: Props) => {
+const FilterBtn = ({ onPress, isActive, title }: Props) => {
   return (
-    <Pressable style={[styles.btn, active && styles.btnActive]}>
-      <Text style={[styles.btnTitle, active && styles.btnTitleActive]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.btn, isActive && styles.btnActive]}
+      activeOpacity={0.7}
+    >
+      <Text style={[styles.btnTitle, isActive && styles.btnTitleActive]}>
         {title}
       </Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
-export default ProductFilterBtn;
+export default FilterBtn;
 
 const styles = StyleSheet.create({
   btn: {

@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
-import { Link, usePathname } from 'expo-router';
+import { Link, usePathname, useSegments } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../../../constants';
 import Animated, {
@@ -19,9 +19,9 @@ interface Props {
 }
 
 const BottomNavItem = ({ href, iconName }: Props) => {
-  const pathname = usePathname();
+  const segments = useSegments();
 
-  const active = pathname === href ? 1 : 0;
+  const active = `/${segments[1] || ''}` === href ? 1 : 0;
   const progress = useSharedValue(1 - active);
 
   progress.value = withTiming(1 - active, { duration: 150 });

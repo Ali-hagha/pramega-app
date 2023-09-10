@@ -1,8 +1,8 @@
 import { StyleSheet, ScrollView, Text } from 'react-native';
 import { Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { COLORS, FONTS, SIZES } from '../../constans';
-import SearchBar from '../../components/SearchBar';
+import { COLORS, FONTS, SIZES } from '../../constants';
+import SearchBar from '../../components/ui/SearchBar';
 import ProductsHorizontalList from '../../components/product/ProductsHorizontalList';
 import getNewProducts from '../../api/getNewProducts';
 import getFavoriteProducts from '../../api/getFavoriteProducts';

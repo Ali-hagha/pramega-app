@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import React from 'react';
-import { COLORS, SIZES } from '../../../constans';
+import { COLORS, SIZES } from '../../../constants';
 import { Link, useGlobalSearchParams, usePathname } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import BottomNavItem from './BottomNavItem';

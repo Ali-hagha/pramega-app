@@ -1,14 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import ProductsPageContent from '../../../../components/product/ProductsPageContent';
+import { router, useLocalSearchParams } from 'expo-router';
+import getProductsByCategory from '../../../../api/getProductsByCategory';
 
-const ProductsByCategoryPage = () => {
+const ProductsPage = () => {
+  const { category } = useLocalSearchParams<{ category: string }>();
+
+  if (!category) {
+    return router.replace('/products');
+  }
+
   return (
-    <View>
-      <Text>index</Text>
-    </View>
+    <ProductsPageContent
+      queryKey={['getProductsByCategory', category]}
+      queryFunction={getProductsByCategory}
+    />
   );
 };
 
-export default ProductsByCategoryPage;
-
-const styles = StyleSheet.create({});
+export default ProductsPage;

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Product } from '../../types/types';
 import { FontAwesome } from '@expo/vector-icons';
-import { COLORS, FONTS, SIZES } from '../../constans';
+import { COLORS, FONTS, SIZES } from '../../constants';
 import { currencyFormatter } from '../../helpers';
 
 interface Props {

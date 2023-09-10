@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, SIZES } from '../../constans';
+import { COLORS, FONTS, SIZES } from '../../constants';
 
 interface Props {
   onPress: () => void;

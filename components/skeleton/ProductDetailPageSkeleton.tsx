@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { COLORS, SIZES } from '../../constans';
+import { COLORS, SIZES } from '../../constants';
 import PulseOpacity from '../animation/PulseOpacity';
 
 const ProductDetailPageSkeleton = () => {

@@ -1,15 +1,21 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, FONTS, SIZES } from '../../constans';
+import { COLORS, FONTS, SIZES } from '../../constants';
 import SelectProductCategoryBtn from './SelectProductCategoryBtn';
 import { Categories, Featured } from '../../types/types';
 import SelectProductFeaturedBtn from './SelectProductFeaturedBtn';
 import { Feather } from '@expo/vector-icons';
 import { useBottomSheet } from '@gorhom/bottom-sheet';
+import { router, useLocalSearchParams } from 'expo-router';
 
 const FilterBottomSheetContent = () => {
-  const selectedCategoryState = useState<Categories>('all');
-  const selectedFeaturedState = useState<Featured>('all');
+  const { category = 'all', featured = 'all' } = useLocalSearchParams<{
+    category: Categories;
+    featured: Featured;
+  }>();
+
+  const selectedCategoryState = useState<Categories>(category);
+  const selectedFeaturedState = useState<Featured>(featured);
   const [selectedCategory] = selectedCategoryState;
   const [selectedFeatured] = selectedFeaturedState;
 
@@ -29,8 +35,7 @@ const FilterBottomSheetContent = () => {
   };
 
   const handleApplyFilters = () => {
-    console.log(selectedCategoryState[0], selectedFeaturedState[0]);
-    console.log(createHref());
+    router.push(createHref());
 
     close();
   };

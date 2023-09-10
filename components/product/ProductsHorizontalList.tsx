@@ -1,6 +1,6 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS, SIZES } from '../../constans';
+import { COLORS, FONTS, SIZES } from '../../constants';
 import { Product } from '../../types/types';
 import ProductCard from './ProductCard';
 import { useQuery } from '@tanstack/react-query';

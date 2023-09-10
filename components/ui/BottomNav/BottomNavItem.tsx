@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { Link, usePathname } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
-import { COLORS, SIZES } from '../../../constans';
+import { COLORS, SIZES } from '../../../constants';
 import Animated, {
   interpolateColor,
   useAnimatedProps,

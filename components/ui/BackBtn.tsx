@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { COLORS, SIZES } from '../../constans';
+import { COLORS, SIZES } from '../../constants';
 import { router } from 'expo-router';
 
 const BackBtn = () => {

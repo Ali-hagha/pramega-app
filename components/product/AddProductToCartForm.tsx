@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { COLORS, FONTS, SIZES } from '../../constans';
+import { COLORS, FONTS, SIZES } from '../../constants';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 

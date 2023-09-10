@@ -1,7 +1,7 @@
 import { TextInput, View, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
-import { COLORS, FONTS, SIZES } from '../constans';
+import { COLORS, FONTS, SIZES } from '../../constants';
 import { useState } from 'react';
 
 function SearchBar() {

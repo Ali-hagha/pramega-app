@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import getProductById from '../../../../../api/getProductById';
 import { router } from 'expo-router';
-import { COLORS, SIZES } from '../../../../../constans';
+import { COLORS, SIZES } from '../../../../../constants';
 import ProductImageGallery from '../../../../../components/product/ProductImageGallery';
 import ProductDetails from '../../../../../components/product/ProductDetails';
 import BackBtn from '../../../../../components/ui/BackBtn';

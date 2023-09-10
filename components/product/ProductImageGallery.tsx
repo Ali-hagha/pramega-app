@@ -2,7 +2,7 @@ import { StyleSheet, Image, Dimensions } from 'react-native';
 import React from 'react';
 import ImageCarousel from '../ui/ImageCarousel';
 import { StrapiImage } from '../../types/types';
-import { COLORS } from '../../constans';
+import { COLORS } from '../../constants';
 
 interface Props {
   images: StrapiImage[];

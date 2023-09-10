@@ -35,7 +35,12 @@ const FilterBottomSheetContent = () => {
   };
 
   const handleApplyFilters = () => {
-    router.push(createHref());
+    // navigate back to all products after pressing the back button when a filter is selected
+    if (category !== 'all' || featured !== 'all') {
+      router.replace(createHref());
+    } else {
+      router.push(createHref());
+    }
 
     close();
   };

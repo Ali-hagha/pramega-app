@@ -1,16 +1,16 @@
-import { StyleSheet, Text, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import React from 'react';
-import { Stack, useLocalSearchParams } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import getProductById from '../../../../../api/getProductById';
 import { router } from 'expo-router';
 import { COLORS, SIZES } from '../../../../../constants';
 import ProductImageGallery from '../../../../../components/product/ProductImageGallery';
 import ProductDetails from '../../../../../components/product/ProductDetails';
-import BackBtn from '../../../../../components/ui/BackBtn';
+import IconBtn from '../../../../../components/ui/IconBtn';
 import AddProductToCartForm from '../../../../../components/product/AddProductToCartForm';
 import ProductDetailPageSkeleton from '../../../../../components/skeleton/ProductDetailPageSkeleton';
+import { Feather } from '@expo/vector-icons';
 
 const ProductDetailsPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -34,8 +34,34 @@ const ProductDetailsPage = () => {
 
   return (
     <View style={styles.container}>
-      <Stack.Screen />
-      <BackBtn />
+      <View
+        style={{
+          backgroundColor: 'transparent',
+          position: 'absolute',
+          top: 40,
+          left: 0,
+          right: 0,
+          zIndex: 20,
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          paddingHorizontal: SIZES.md,
+        }}
+      >
+        <IconBtn onPress={router.back}>
+          <Feather
+            name="chevron-left"
+            size={SIZES.lg}
+            color={COLORS.gray_500}
+          />
+        </IconBtn>
+        <IconBtn onPress={() => router.push('/cart')}>
+          <Feather
+            name="shopping-cart"
+            size={SIZES.lg}
+            color={COLORS.gray_500}
+          />
+        </IconBtn>
+      </View>
       {isSuccess && (
         <ScrollView>
           <ProductImageGallery images={product.attributes.imageGallery.data} />

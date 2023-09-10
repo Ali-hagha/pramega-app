@@ -53,6 +53,12 @@ const RootLayout = () => {
               presentation: 'transparentModal',
             }}
           />
+          <Stack.Screen
+            name="(aux)/cart"
+            options={{
+              presentation: 'transparentModal',
+            }}
+          />
         </Stack>
       </View>
     </QueryClientProvider>

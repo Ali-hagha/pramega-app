@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
-import { Link, usePathname, useSegments } from 'expo-router';
+import { Pressable, StyleSheet } from 'react-native';
+import React from 'react';
+import { Link, useSegments } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../../../constants';
 import Animated, {

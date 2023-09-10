@@ -1,12 +1,11 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { COLORS, SIZES } from '../../../constants';
-import { useGlobalSearchParams, usePathname } from 'expo-router';
+import { useGlobalSearchParams } from 'expo-router';
 import BottomNavItem from './BottomNavItem';
 
 const BottomNav = () => {
   const { productId } = useGlobalSearchParams<{ productId: string }>();
-  const pathname = usePathname();
 
   return (
     <View style={[styles.container, { display: productId ? 'none' : 'flex' }]}>

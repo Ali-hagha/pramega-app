@@ -8,6 +8,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import ProductCardSmall from './ProductCardSmall';
 import ProductCardSkeletonSmall from '../skeleton/ProductCardSkeletonSmall';
 import { MetaData, Product } from '../../types/types';
+import NoProductsFound from './NoProductsFound';
 
 interface Props {
   queryKey: string[];
@@ -68,6 +69,7 @@ const ProductsPageContent = ({ queryKey, queryFunction }: Props) => {
           overScrollMode="never"
           onEndReached={handleEndReached}
           onEndReachedThreshold={0.2}
+          ListEmptyComponent={<NoProductsFound />}
           ListFooterComponent={
             hasNextPage ? (
               <ActivityIndicator

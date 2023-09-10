@@ -1,14 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import ProductsPageContent from '../../../components/product/ProductsPageContent';
+import { Featured } from '../../../types/types';
+import getProductsByFeatured from '../../../api/getProductsByFeatured';
 
-const FilterProductsPage = () => {
+const FilteredProductsPage = () => {
+  const { featured } = useLocalSearchParams<{ featured: Featured }>();
+
+  if (!featured) {
+    return router.replace('/products');
+  }
+
   return (
-    <View>
-      <Text>FilterProductsPage</Text>
-    </View>
+    <ProductsPageContent
+      queryKey={['getProductsByFeatured', featured]}
+      queryFunction={getProductsByFeatured}
+    />
   );
 };
 
-export default FilterProductsPage;
-
-const styles = StyleSheet.create({});
+export default FilteredProductsPage;

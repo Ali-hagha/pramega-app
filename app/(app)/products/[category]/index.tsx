@@ -4,7 +4,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import getProductsByCategory from '../../../../api/getProductsByCategory';
 import { Categories } from '../../../../types/types';
 
-const ProductsPage = () => {
+const ProductsByCategoryPage = () => {
   const { category } = useLocalSearchParams<{ category: Categories }>();
 
   if (!category) {
@@ -19,4 +19,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default ProductsByCategoryPage;

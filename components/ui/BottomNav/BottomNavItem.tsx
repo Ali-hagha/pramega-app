@@ -67,5 +67,7 @@ const styles = StyleSheet.create({
   btn: {
     borderRadius: SIZES.md,
     padding: SIZES.smp,
+    width: 80,
+    alignItems: 'center',
   },
 });

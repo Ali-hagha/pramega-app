@@ -27,6 +27,11 @@ const ProductCardSmall = ({ product: { attributes, id } }: Props) => {
         asChild
       >
         <Pressable>
+          {attributes.productTag && (
+            <View style={styles.tagContainer}>
+              <Text style={styles.tagText}>{attributes.productTag}</Text>
+            </View>
+          )}
           <Image
             source={{
               uri: imgUrl,
@@ -86,6 +91,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  tagContainer: {
+    paddingVertical: SIZES.xxxxs,
+    paddingHorizontal: SIZES.xxs,
+    backgroundColor: COLORS.primary,
+    borderRadius: SIZES.xxs,
+    position: 'absolute',
+    alignContent: 'center',
+    justifyContent: 'center',
+    top: SIZES.xxs,
+    left: SIZES.xxs,
+    zIndex: 10,
+  },
+  tagText: {
+    fontFamily: FONTS.Montserrat_600,
+    fontSize: SIZES.smp,
+    color: COLORS.gray_500,
   },
   name: {
     fontFamily: FONTS.Montserrat_500,

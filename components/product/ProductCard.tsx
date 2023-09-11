@@ -1,10 +1,10 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS, SIZES } from '../../constants';
 import { Product } from '../../types/types';
 import { currencyFormatter } from '../../helpers';
 import { FontAwesome } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 
 interface Props {
   product: Product;
@@ -14,17 +14,25 @@ interface Props {
 const ProductCard = ({ product: { attributes, id }, index }: Props) => {
   const strapiUrl = process.env.EXPO_PUBLIC_STRAPI_URL;
   const imgUrl = `${strapiUrl}${attributes.primaryImage.data.attributes.formats.small.url}`;
+
+  const handleCardPress = () => {
+    router.push({
+      pathname: '/products/[category]/[productId]',
+      params: {
+        category: attributes.category,
+        productId: attributes.productId,
+        id,
+      },
+    });
+  };
+
   return (
     <View style={{ ...styles.card, marginStart: index === 0 ? SIZES.md : 0 }}>
-      <Link
-        href={{
-          pathname: '/products/[category]/[productId]',
-          params: {
-            category: attributes.category,
-            productId: attributes.productId,
-            id,
-          },
-        }}
+      <Pressable
+        style={({ pressed }) => ({
+          opacity: pressed ? 0.5 : 1,
+        })}
+        onPress={handleCardPress}
       >
         <View>
           <Image
@@ -54,7 +62,7 @@ const ProductCard = ({ product: { attributes, id }, index }: Props) => {
             </View>
           </View>
         </View>
-      </Link>
+      </Pressable>
     </View>
   );
 };

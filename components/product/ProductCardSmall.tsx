@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.gray_100,
     borderRadius: SIZES.md,
     overflow: 'hidden',
-    flexBasis: '47%',
+    flexBasis: '49%',
   },
   info: {
     padding: SIZES.sm,

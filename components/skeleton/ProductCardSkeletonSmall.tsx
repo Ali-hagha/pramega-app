@@ -21,7 +21,6 @@ export default ProductCardSkeletonSmall;
 const styles = StyleSheet.create({
   image: {
     height: 184,
-    width: 150,
     backgroundColor: COLORS.gray_300,
     borderRadius: SIZES.sm,
   },
@@ -29,6 +28,7 @@ const styles = StyleSheet.create({
     padding: SIZES.xxs,
     backgroundColor: COLORS.gray_100,
     borderRadius: SIZES.md,
+    flexBasis: '49%',
   },
   info: {
     padding: SIZES.sm,

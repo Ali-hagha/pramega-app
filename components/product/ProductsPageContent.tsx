@@ -64,7 +64,7 @@ const ProductsPageContent = ({ queryKey, queryFunction }: Props) => {
           contentContainerStyle={styles.scrollContentContainer}
           numColumns={2}
           columnWrapperStyle={{
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
           }}
           overScrollMode="never"
           onEndReached={handleEndReached}
@@ -90,7 +90,7 @@ const ProductsPageContent = ({ queryKey, queryFunction }: Props) => {
           contentContainerStyle={styles.scrollContentContainer}
           numColumns={2}
           columnWrapperStyle={{
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
           }}
           overScrollMode="never"
         />
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   scrollContentContainer: {
     paddingVertical: SIZES.md,
-    paddingHorizontal: SIZES.xxxxs,
+    paddingHorizontal: SIZES.xxxs,
     gap: SIZES.xxs,
   },
   headerWrapper: {

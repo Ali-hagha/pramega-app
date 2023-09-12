@@ -34,19 +34,7 @@ const ProductDetailsPage = () => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          backgroundColor: 'transparent',
-          position: 'absolute',
-          top: 40,
-          left: 0,
-          right: 0,
-          zIndex: 20,
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          paddingHorizontal: SIZES.md,
-        }}
-      >
+      <View style={styles.header}>
         <IconBtn onPress={router.back}>
           <Feather
             name="chevron-left"
@@ -63,13 +51,17 @@ const ProductDetailsPage = () => {
         </IconBtn>
       </View>
       {isSuccess && (
-        <ScrollView>
-          <ProductImageGallery images={product.attributes.imageGallery.data} />
-          <ProductDetails product={product} />
-          <View style={styles.filler}></View>
-        </ScrollView>
+        <>
+          <ScrollView>
+            <ProductImageGallery
+              images={product.attributes.imageGallery.data}
+            />
+            <ProductDetails product={product} />
+            <View style={styles.filler}></View>
+          </ScrollView>
+          <AddProductToCartForm product={product} />
+        </>
       )}
-      <AddProductToCartForm />
     </View>
   );
 };
@@ -83,5 +75,16 @@ const styles = StyleSheet.create({
   },
   filler: {
     padding: SIZES.xxl,
+  },
+  header: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 40,
+    left: 0,
+    right: 0,
+    zIndex: 20,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingHorizontal: SIZES.md,
   },
 });

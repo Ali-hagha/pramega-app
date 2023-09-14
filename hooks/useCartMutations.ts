@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import createNewCart from '../api/createNewCart';
 import updateCartById from '../api/updateCartById';
 import { CartData } from '../types/types';
@@ -8,16 +8,27 @@ import {
 } from '../helpers';
 
 export const useCartMutation = () => {
+  const queryClient = useQueryClient();
+
   const createNewCartMutation = useMutation({
     mutationFn: createNewCart,
     onSuccess: (data: CartData) => {
-      setCartIdToAsyncStorage(data.id.toString());
-      setCartUniqueIdToAsyncStorage(data.attributes.cartUniqueId);
+      const cartId = data.id.toString();
+      const uuid = data.attributes.cartUniqueId;
+      setCartIdToAsyncStorage(cartId);
+      setCartUniqueIdToAsyncStorage(uuid);
+
+      queryClient.invalidateQueries({ queryKey: ['cartById', cartId] });
     },
   });
 
   const updateCartMutation = useMutation({
     mutationFn: updateCartById,
+    onSuccess: (data: CartData) => {
+      const cartId = data.id.toString();
+
+      queryClient.invalidateQueries({ queryKey: ['cartById', cartId] });
+    },
   });
 
   return { createNewCartMutation, updateCartMutation };

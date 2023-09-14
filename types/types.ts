@@ -71,3 +71,36 @@ export type Categories =
   | 'tables';
 
 export type Featured = 'all' | 'sale' | 'new';
+
+export interface CartPostData {
+  data: {
+    products: number[];
+    productCount: {
+      id: number;
+      quantity: number;
+    }[];
+
+    cartUniqueId: string;
+  };
+}
+
+export interface CartData {
+  id: number;
+  attributes: {
+    cartUniqueId: string;
+    productCount: [
+      {
+        id: number;
+        quantity: number;
+      }
+    ];
+    products: {
+      data: Product[];
+    };
+  };
+}
+
+export interface CartContextValue {
+  cartId: string | null;
+  cartUniqueId: string | null;
+}

@@ -1,26 +1,23 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import React from 'react';
 import { COLORS, FONTS, SIZES } from '../../constants';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import { Product } from '../../types/types';
+import { useCartFrom } from '../../hooks/useCartForm';
 
-const AddProductToCartForm = () => {
-  const [productCount, setProductCount] = useState(1);
+interface Props {
+  product: Product;
+}
 
-  const handleIncrement = () => {
-    setProductCount(prevCount => {
-      if (prevCount < 6) return prevCount + 1;
-      return prevCount;
-    });
-  };
-
-  const handleDecrement = () => {
-    setProductCount(prevCount => {
-      if (prevCount <= 1) return prevCount;
-      return prevCount - 1;
-    });
-  };
+const AddProductToCartForm = ({ product }: Props) => {
+  const {
+    handleAddToCart,
+    handleDecrementProductCount,
+    handleIncrementProductCount,
+    productCount,
+  } = useCartFrom(product.id);
 
   return (
     <View style={styles.container}>
@@ -28,7 +25,7 @@ const AddProductToCartForm = () => {
         <TouchableOpacity
           style={styles.btn}
           activeOpacity={0.7}
-          onPress={() => console.log('add to cart')}
+          onPress={handleAddToCart}
         >
           <Text style={styles.btnText}>Add to cart</Text>
           <Feather name="shopping-cart" size={SIZES.lg} color={COLORS.white} />
@@ -38,7 +35,7 @@ const AddProductToCartForm = () => {
         <TouchableOpacity
           style={styles.counterBtn}
           activeOpacity={0.7}
-          onPress={handleDecrement}
+          onPress={handleDecrementProductCount}
         >
           <FontAwesome5 name="minus" size={SIZES.sm} color={COLORS.gray_700} />
         </TouchableOpacity>
@@ -46,7 +43,7 @@ const AddProductToCartForm = () => {
         <TouchableOpacity
           style={styles.counterBtn}
           activeOpacity={0.7}
-          onPress={handleIncrement}
+          onPress={handleIncrementProductCount}
         >
           <FontAwesome5 name="plus" size={SIZES.sm} color={COLORS.gray_700} />
         </TouchableOpacity>

@@ -7,8 +7,20 @@ import ProductsHorizontalList from '../../components/product/ProductsHorizontalL
 import getNewProducts from '../../api/getNewProducts';
 import getFavoriteProducts from '../../api/getFavoriteProducts';
 import getOnSaleProducts from '../../api/getOnSaleProducts';
+import { useContext } from 'react';
+import { CartContext } from '../../context/cartContext';
+import { useQuery } from '@tanstack/react-query';
+import getCartById from '../../api/getCartById';
 
 export default function HomePage() {
+  const { cartId } = useContext(CartContext);
+
+  const cartDataQuery = useQuery({
+    queryKey: ['cartById', cartId],
+    queryFn: () => getCartById(cartId!),
+    enabled: !!cartId,
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

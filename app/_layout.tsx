@@ -15,6 +15,7 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CartContextProvider } from '../context/cartContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -45,22 +46,24 @@ const RootLayout = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        <Stack screenOptions={{ headerShown: false, animation: 'none' }}>
-          <Stack.Screen
-            name="(aux)/filterBottomSheet"
-            options={{
-              presentation: 'transparentModal',
-            }}
-          />
-          <Stack.Screen
-            name="(aux)/cart"
-            options={{
-              presentation: 'transparentModal',
-            }}
-          />
-        </Stack>
-      </View>
+      <CartContextProvider>
+        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+          <Stack screenOptions={{ headerShown: false, animation: 'none' }}>
+            <Stack.Screen
+              name="(aux)/filterBottomSheet"
+              options={{
+                presentation: 'transparentModal',
+              }}
+            />
+            <Stack.Screen
+              name="(aux)/cart"
+              options={{
+                presentation: 'transparentModal',
+              }}
+            />
+          </Stack>
+        </View>
+      </CartContextProvider>
     </QueryClientProvider>
   );
 };

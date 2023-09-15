@@ -61,6 +61,10 @@ const RootLayout = () => {
                 presentation: 'transparentModal',
               }}
             />
+            <Stack.Screen
+              name="(noBottomNav)/products/[category]/[productId]"
+              options={{ animation: 'default' }}
+            />
           </Stack>
         </View>
       </CartContextProvider>

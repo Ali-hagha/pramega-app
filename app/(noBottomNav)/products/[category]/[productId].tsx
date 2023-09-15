@@ -2,14 +2,14 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 import React from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import getProductById from '../../../../../api/getProductById';
+import getProductById from '../../../../api/getProductById';
 import { router } from 'expo-router';
-import { COLORS, SIZES } from '../../../../../constants';
-import ProductImageGallery from '../../../../../components/product/ProductImageGallery';
-import ProductDetails from '../../../../../components/product/ProductDetails';
-import IconBtn from '../../../../../components/ui/IconBtn';
-import AddProductToCartForm from '../../../../../components/product/AddProductToCartForm';
-import ProductDetailPageSkeleton from '../../../../../components/skeleton/ProductDetailPageSkeleton';
+import { COLORS, SIZES } from '../../../../constants';
+import ProductImageGallery from '../../../../components/product/ProductImageGallery';
+import ProductDetails from '../../../../components/product/ProductDetails';
+import IconBtn from '../../../../components/ui/IconBtn';
+import AddProductToCartForm from '../../../../components/product/AddProductToCartForm';
+import ProductDetailPageSkeleton from '../../../../components/skeleton/ProductDetailPageSkeleton';
 import { Feather } from '@expo/vector-icons';
 
 const ProductDetailsPage = () => {

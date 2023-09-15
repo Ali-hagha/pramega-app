@@ -5,10 +5,8 @@ import { useGlobalSearchParams } from 'expo-router';
 import BottomNavItem from './BottomNavItem';
 
 const BottomNav = () => {
-  const { productId } = useGlobalSearchParams<{ productId: string }>();
-
   return (
-    <View style={[styles.container, { display: productId ? 'none' : 'flex' }]}>
+    <View style={styles.container}>
       <BottomNavItem href="/" iconName="home" />
       <BottomNavItem href="/products" iconName="package" />
       <BottomNavItem href="/cart" iconName="shopping-cart" />

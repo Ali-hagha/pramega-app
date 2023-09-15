@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import React from 'react';
 import { Product } from '../../types/types';
 import { COLORS, FONTS, SIZES } from '../../constants';
 import { currencyFormatter } from '../../helpers';
 import CartProductCounter from './CartProductCounter';
+import { router } from 'expo-router';
 
 interface Props {
   product: Product;
@@ -15,21 +16,39 @@ const strapiUrl = process.env.EXPO_PUBLIC_STRAPI_URL;
 const CartItem = ({ product, count }: Props) => {
   const imgUrl = `${strapiUrl}${product.attributes.primaryImage.data.attributes.formats.small.url}`;
 
+  const handleItemPress = () => {
+    router.push({
+      pathname: '/products/[category]/[productId]',
+      params: {
+        category: product.attributes.category,
+        productId: product.attributes.productId,
+        id: product.id,
+      },
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <View>
-        <Image
-          source={{
-            uri: imgUrl,
-          }}
-          width={120}
-          height={120}
-          style={{
-            resizeMode: 'contain',
-            borderRadius: SIZES.md,
-          }}
-        />
-      </View>
+      <Pressable
+        style={({ pressed }) => ({
+          opacity: pressed ? 0.5 : 1,
+        })}
+        onPress={handleItemPress}
+      >
+        <View>
+          <Image
+            source={{
+              uri: imgUrl,
+            }}
+            width={120}
+            height={120}
+            style={{
+              resizeMode: 'contain',
+              borderRadius: SIZES.md,
+            }}
+          />
+        </View>
+      </Pressable>
       <View style={styles.info}>
         <Text style={styles.category}>{product.attributes.category}</Text>
         <Text style={styles.name}>{product.attributes.name}</Text>

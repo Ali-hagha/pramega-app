@@ -1,3 +1,4 @@
+import { Product } from './../types/types';
 import { useState } from 'react';
 import { useCartMutation } from './useCartMutations';
 import { CartPostData } from '../types/types';
@@ -34,11 +35,13 @@ export const useCartFrom = (productId: number) => {
 
   const handleAddToCart = () => {
     if (cartUniqueId && cartId && cartData) {
-      const exitingProductIds = cartData.attributes.products.data.map(
-        p => p.id
-      );
+      const exitingProductIds = cartData.attributes.products.data
+        .filter(p => p.id !== productId)
+        .map(p => p.id);
 
-      const existingProductCounts = cartData.attributes.productCount;
+      const existingProductCounts = cartData.attributes.productCount.filter(
+        product => product.id !== productId
+      );
 
       const updatedCartData: CartPostData = {
         data: {

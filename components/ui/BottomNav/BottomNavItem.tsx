@@ -1,8 +1,8 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Link, useSegments } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
-import { COLORS, SIZES } from '../../../constants';
+import { COLORS, FONTS, SIZES } from '../../../constants';
 import Animated, {
   interpolateColor,
   useAnimatedProps,
@@ -10,15 +10,17 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import Badge from '../Badge';
 
 const AnimatedFeather = Animated.createAnimatedComponent(Feather);
 
 interface Props {
   href: string;
   iconName: 'home' | 'package' | 'grid' | 'shopping-cart';
+  badgeCount?: number;
 }
 
-const BottomNavItem = ({ href, iconName }: Props) => {
+const BottomNavItem = ({ href, iconName, badgeCount }: Props) => {
   const segments = useSegments();
 
   const active = `/${segments[1] || ''}` === href ? 1 : 0;
@@ -55,6 +57,8 @@ const BottomNavItem = ({ href, iconName }: Props) => {
             size={SIZES.xl}
             animatedProps={animatedBtnIcon}
           />
+
+          <Badge count={badgeCount} />
         </Animated.View>
       </Pressable>
     </Link>
@@ -69,5 +73,22 @@ const styles = StyleSheet.create({
     padding: SIZES.smp,
     width: 80,
     alignItems: 'center',
+  },
+  badge: {
+    position: 'absolute',
+    borderRadius: 50,
+    backgroundColor: COLORS.primary,
+    width: SIZES.xl,
+    height: SIZES.xl,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: COLORS.gray_100,
+    right: 0,
+  },
+  badgeText: {
+    fontFamily: FONTS.Montserrat_500,
+    color: COLORS.gray_700,
+    fontSize: SIZES.sm,
   },
 });

@@ -2,14 +2,15 @@ import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS, SIZES } from '../../constants';
-import { router } from 'expo-router';
+import Badge from './Badge';
 
 interface Props {
   children: ReactNode;
   onPress: () => void;
+  badgeCount?: number;
 }
 
-const IconBtn = ({ children, onPress }: Props) => {
+const IconBtn = ({ children, onPress, badgeCount }: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -19,6 +20,7 @@ const IconBtn = ({ children, onPress }: Props) => {
       >
         {children}
       </TouchableOpacity>
+      <Badge count={badgeCount} top={-10} right={-10} />
     </View>
   );
 };

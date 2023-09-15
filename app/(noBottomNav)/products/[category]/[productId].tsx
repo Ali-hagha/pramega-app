@@ -11,13 +11,26 @@ import IconBtn from '../../../../components/ui/IconBtn';
 import AddProductToCartForm from '../../../../components/product/AddProductToCartForm';
 import ProductDetailPageSkeleton from '../../../../components/skeleton/ProductDetailPageSkeleton';
 import { Feather } from '@expo/vector-icons';
+import { useCartContextData } from '../../../../hooks/useCartContextData';
+import getCartById from '../../../../api/getCartById';
 
 const ProductDetailsPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { cartId } = useCartContextData();
 
   if (!id) {
     return router.replace('/');
   }
+
+  const { data: cartData, isSuccess: isCartSuccess } = useQuery({
+    queryKey: ['cartById', cartId],
+    queryFn: () => getCartById(cartId),
+    enabled: false,
+  });
+
+  const badgeCount = isCartSuccess
+    ? cartData.attributes.products.data.length
+    : undefined;
 
   const {
     data: product,
@@ -42,7 +55,7 @@ const ProductDetailsPage = () => {
             color={COLORS.gray_500}
           />
         </IconBtn>
-        <IconBtn onPress={() => router.push('/cart')}>
+        <IconBtn onPress={() => router.push('/cart')} badgeCount={badgeCount}>
           <Feather
             name="shopping-cart"
             size={SIZES.lg}

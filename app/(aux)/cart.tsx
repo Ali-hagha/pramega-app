@@ -1,17 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useContext } from 'react';
+import React from 'react';
 import CustomBottomSheet from '../../components/ui/bottomSheet/CustomBottomSheet';
-import { CartContext } from '../../context/cartContext';
 import { useQuery } from '@tanstack/react-query';
 import getCartById from '../../api/getCartById';
 import { FlatList } from 'react-native-gesture-handler';
+import { useCartContextData } from '../../hooks/useCartContextData';
 
 const Cart = () => {
-  const { cartId } = useContext(CartContext);
+  const { cartId } = useCartContextData();
 
   const { data: cartData, isSuccess } = useQuery({
     queryKey: ['cartById', cartId],
-    queryFn: () => getCartById(cartId!),
+    queryFn: () => getCartById(cartId),
     enabled: false,
   });
 

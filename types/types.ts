@@ -101,6 +101,8 @@ export interface CartData {
 }
 
 export interface CartContextValue {
-  cartId: string | null;
-  cartUniqueId: string | null;
+  cartId: string;
+  cartUniqueId: string;
+  setCartId: React.Dispatch<React.SetStateAction<string>>;
+  setCartUniqueId: React.Dispatch<React.SetStateAction<string>>;
 }

@@ -1,19 +1,20 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useCartMutation } from './useCartMutations';
 import { CartPostData } from '../types/types';
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { useQuery } from '@tanstack/react-query';
 import getCartById from '../api/getCartById';
-import { CartContext } from '../context/cartContext';
+import { useCartContextData } from './useCartContextData';
 
 export const useCartFrom = (productId: number) => {
   const [productCount, setProductCount] = useState(1);
   const { createNewCartMutation, updateCartMutation } = useCartMutation();
-  const { cartId, cartUniqueId } = useContext(CartContext);
+  const { cartId, cartUniqueId } = useCartContextData();
 
   const { data: cartData } = useQuery({
     queryKey: ['cartById', cartId],
-    queryFn: () => getCartById(cartId!),
+    queryFn: () => getCartById(cartId),
     enabled: false,
   });
 

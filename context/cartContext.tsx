@@ -6,8 +6,8 @@ import {
 } from '../helpers';
 
 const CartContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cartId, setCartId] = useState<string | null>(null);
-  const [cartUniqueId, setCartUniqueId] = useState<string | null>(null);
+  const [cartId, setCartId] = useState<string>('');
+  const [cartUniqueId, setCartUniqueId] = useState<string>('');
 
   useEffect(() => {
     const getCartIds = async () => {
@@ -28,15 +28,14 @@ const CartContextProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <CartContext.Provider value={{ cartId, cartUniqueId }}>
+    <CartContext.Provider
+      value={{ cartId, cartUniqueId, setCartId, setCartUniqueId }}
+    >
       {children}
     </CartContext.Provider>
   );
 };
 
-const CartContext = createContext<CartContextValue>({
-  cartId: null,
-  cartUniqueId: null,
-});
+const CartContext = createContext<CartContextValue | null>(null);
 
 export { CartContext, CartContextProvider };

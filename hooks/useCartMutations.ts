@@ -7,6 +7,7 @@ import {
   setCartUniqueIdToAsyncStorage,
 } from '../helpers';
 import { useCartContextData } from './useCartContextData';
+import { router } from 'expo-router';
 
 export const useCartMutation = () => {
   const queryClient = useQueryClient();
@@ -24,6 +25,8 @@ export const useCartMutation = () => {
       setCartUniqueId(uuid);
 
       queryClient.invalidateQueries({ queryKey: ['cartById', cartId] });
+
+      router.push('/cart');
     },
   });
 
@@ -33,6 +36,8 @@ export const useCartMutation = () => {
       const cartId = data.id.toString();
 
       queryClient.invalidateQueries({ queryKey: ['cartById', cartId] });
+
+      router.push('/cart');
     },
   });
 

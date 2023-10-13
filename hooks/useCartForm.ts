@@ -1,12 +1,11 @@
-import { Product } from './../types/types';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useCartMutation } from './useCartMutations';
-import { CartPostData } from '../types/types';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
-import { useQuery } from '@tanstack/react-query';
 import getCartById from '../api/getCartById';
+import { CartPostData } from '../types/types';
 import { useCartContextData } from './useCartContextData';
+import { useCartMutation } from './useCartMutations';
 
 export const useCartFrom = (productId: number) => {
   const [productCount, setProductCount] = useState(1);
@@ -82,5 +81,7 @@ export const useCartFrom = (productId: number) => {
     handleDecrementProductCount,
     handleIncrementProductCount,
     productCount,
+    isMutationLoading:
+      updateCartMutation.isLoading || createNewCartMutation.isLoading,
   };
 };

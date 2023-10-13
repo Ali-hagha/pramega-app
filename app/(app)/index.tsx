@@ -11,13 +11,14 @@ import { useContext } from 'react';
 import { CartContext } from '../../context/cartContext';
 import { useQuery } from '@tanstack/react-query';
 import getCartById from '../../api/getCartById';
+import { useCartContextData } from '@/hooks/useCartContextData';
 
 export default function HomePage() {
-  const { cartId } = useContext(CartContext);
+  const { cartId } = useCartContextData();
 
   const cartDataQuery = useQuery({
     queryKey: ['cartById', cartId],
-    queryFn: () => getCartById(cartId!),
+    queryFn: () => getCartById(cartId),
     enabled: !!cartId,
   });
 

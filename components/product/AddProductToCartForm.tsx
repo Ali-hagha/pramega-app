@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import React from 'react';
-import { COLORS, FONTS, SIZES } from '../../constants';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+
+import { COLORS, FONTS, SIZES } from '../../constants';
 import { Product } from '../../types/types';
 import { useCartFrom } from '../../hooks/useCartForm';
 
@@ -17,18 +18,28 @@ const AddProductToCartForm = ({ product }: Props) => {
     handleDecrementProductCount,
     handleIncrementProductCount,
     productCount,
+    isMutationLoading,
   } = useCartFrom(product.id);
 
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <TouchableOpacity
-          style={styles.btn}
+          disabled={isMutationLoading}
+          style={[styles.btn, isMutationLoading && styles.disabled]}
           activeOpacity={0.7}
           onPress={handleAddToCart}
         >
           <Text style={styles.btnText}>Add to cart</Text>
-          <Feather name="shopping-cart" size={SIZES.lg} color={COLORS.white} />
+          {isMutationLoading ? (
+            <ActivityIndicator color={COLORS.white} size={'small'} />
+          ) : (
+            <Feather
+              name="shopping-cart"
+              size={SIZES.lg}
+              color={COLORS.white}
+            />
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.counterWrapper}>
@@ -75,6 +86,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+  },
+  disabled: {
+    backgroundColor: COLORS.gray_400,
   },
   btnText: {
     color: COLORS.white,

@@ -17,7 +17,7 @@ const CartItem = ({ product, count }: Props) => {
   const imgUrl = `${strapiUrl}${product.attributes.primaryImage.data.attributes.formats.small.url}`;
 
   const handleItemPress = () => {
-    router.push({
+    router.replace({
       pathname: '/products/[category]/[productId]',
       params: {
         category: product.attributes.category,

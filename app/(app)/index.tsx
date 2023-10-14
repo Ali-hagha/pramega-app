@@ -1,17 +1,16 @@
-import { StyleSheet, ScrollView, Text } from 'react-native';
-import { Stack } from 'expo-router';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { COLORS, FONTS, SIZES } from '../../constants';
-import SearchBar from '../../components/ui/SearchBar';
-import ProductsHorizontalList from '../../components/product/ProductsHorizontalList';
-import getNewProducts from '../../api/getNewProducts';
-import getFavoriteProducts from '../../api/getFavoriteProducts';
-import getOnSaleProducts from '../../api/getOnSaleProducts';
-import { useContext } from 'react';
-import { CartContext } from '../../context/cartContext';
-import { useQuery } from '@tanstack/react-query';
-import getCartById from '../../api/getCartById';
 import { useCartContextData } from '@/hooks/useCartContextData';
+import { useQuery } from '@tanstack/react-query';
+
+import { COLORS, FONTS, SIZES } from '@/constants';
+
+import getCartById from '@/api/getCartById';
+import getFavoriteProducts from '@/api/getFavoriteProducts';
+import getNewProducts from '@/api/getNewProducts';
+import getOnSaleProducts from '@/api/getOnSaleProducts';
+import ProductsHorizontalList from '@/components/product/ProductsHorizontalList';
+import SearchBar from '@/components/ui/SearchBar';
 
 export default function HomePage() {
   const { cartId } = useCartContextData();

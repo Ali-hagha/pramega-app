@@ -59,7 +59,10 @@ const ProductDetailsPage = () => {
             color={COLORS.gray_500}
           />
         </IconBtn>
-        <IconBtn onPress={() => router.push('/cart')} badgeCount={badgeCount}>
+        <IconBtn
+          onPress={() => router.push('/cartBottomSheet')}
+          badgeCount={badgeCount}
+        >
           <Feather
             name="shopping-cart"
             size={SIZES.lg}

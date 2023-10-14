@@ -56,7 +56,7 @@ const RootLayout = () => {
               }}
             />
             <Stack.Screen
-              name="(aux)/cart"
+              name="(aux)/cartBottomSheet"
               options={{
                 presentation: 'transparentModal',
               }}

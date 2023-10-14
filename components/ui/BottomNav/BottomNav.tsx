@@ -24,7 +24,7 @@ const BottomNav = () => {
       <BottomNavItem href="/" iconName="home" />
       <BottomNavItem href="/products" iconName="package" />
       <BottomNavItem
-        href="/cart"
+        href="/cartBottomSheet"
         iconName="shopping-cart"
         badgeCount={badgeCount}
       />

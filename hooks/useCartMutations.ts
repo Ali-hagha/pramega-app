@@ -26,7 +26,7 @@ export const useCartMutation = () => {
 
       queryClient.invalidateQueries({ queryKey: ['cartById', cartId] });
 
-      router.push('/cart');
+      router.push('/cartBottomSheet');
     },
   });
 
@@ -37,7 +37,7 @@ export const useCartMutation = () => {
 
       queryClient.invalidateQueries({ queryKey: ['cartById', cartId] });
 
-      router.push('/cart');
+      router.push('/cartBottomSheet');
     },
   });
 

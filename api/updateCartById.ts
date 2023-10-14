@@ -9,13 +9,16 @@ const updateCartById = async ({
 }) => {
   const strapiUrl = process.env.EXPO_PUBLIC_STRAPI_URL;
 
-  const res = await fetch(`${strapiUrl}/api/carts/${cartId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  const res = await fetch(
+    `${strapiUrl}/api/carts/${cartId}?populate=products.primaryImage`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  );
 
   const responseData = await res.json();
   const cartData = responseData.data as CartData;

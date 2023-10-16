@@ -17,6 +17,7 @@ import AddProductToCartForm from '@/components/product/AddProductToCartForm';
 import ProductDetailPageSkeleton from '@/components/skeleton/ProductDetailPageSkeleton';
 
 import { useCartContextData } from '@/hooks/useCartContextData';
+import EditProductInCartForm from '@/components/product/EditProductInCartForm';
 
 const ProductDetailsPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -32,9 +33,13 @@ const ProductDetailsPage = () => {
     enabled: false,
   });
 
-  const badgeCount = isCartSuccess
-    ? cartData.attributes.products.data.length
-    : undefined;
+  const badgeCount = cartData?.attributes.products.data.length;
+
+  const currentProductCartCount = cartData?.attributes.productCount.find(
+    p => p.id.toString() === id
+  )?.quantity;
+
+  console.log(currentProductCartCount);
 
   const {
     data: product,
@@ -79,7 +84,11 @@ const ProductDetailsPage = () => {
             <ProductDetails product={product} />
             <View style={styles.filler}></View>
           </ScrollView>
-          <AddProductToCartForm product={product} />
+          {currentProductCartCount ? (
+            <EditProductInCartForm productCount={currentProductCartCount} />
+          ) : (
+            <AddProductToCartForm product={product} />
+          )}
         </>
       )}
     </View>

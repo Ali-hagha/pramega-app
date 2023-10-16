@@ -5,17 +5,31 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 import { COLORS, FONTS, SIZES } from '../../constants';
+import { useCartFrom } from '@/hooks/useCartForm';
 
 interface Props {
-  productCount: number;
+  productCountData: { id: number; quantity: number };
 }
 
-const EditProductInCartForm = ({ productCount }: Props) => {
+const EditProductInCartForm = ({
+  productCountData: { id, quantity },
+}: Props) => {
+  const {
+    handleDecrementProductCount,
+    handleIncrementProductCount,
+    handleDeleteProductFromCart,
+    isMutationLoading,
+  } = useCartFrom(id);
+
   return (
     <View style={styles.container}>
       <View style={styles.counterWrapper}>
-        {productCount > 1 ? (
-          <TouchableOpacity style={styles.counterBtn} activeOpacity={0.7}>
+        {quantity > 1 ? (
+          <TouchableOpacity
+            onPress={() => handleDecrementProductCount(quantity)}
+            style={styles.counterBtn}
+            activeOpacity={0.7}
+          >
             <FontAwesome5
               name="minus"
               size={SIZES.md}
@@ -23,7 +37,11 @@ const EditProductInCartForm = ({ productCount }: Props) => {
             />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={styles.deleteBtn} activeOpacity={0.7}>
+          <TouchableOpacity
+            onPress={handleDeleteProductFromCart}
+            style={styles.deleteBtn}
+            activeOpacity={0.7}
+          >
             <FontAwesome5
               name="trash-alt"
               size={SIZES.xl}
@@ -33,9 +51,13 @@ const EditProductInCartForm = ({ productCount }: Props) => {
         )}
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.text}>Items in cart:</Text>
-          <Text style={[styles.countText, styles.text]}>{productCount}</Text>
+          <Text style={[styles.countText, styles.text]}>{quantity}</Text>
         </View>
-        <TouchableOpacity style={styles.counterBtn} activeOpacity={0.7}>
+        <TouchableOpacity
+          onPress={() => handleIncrementProductCount(quantity)}
+          style={styles.counterBtn}
+          activeOpacity={0.7}
+        >
           <FontAwesome5 name="plus" size={SIZES.md} color={COLORS.gray_700} />
         </TouchableOpacity>
       </View>

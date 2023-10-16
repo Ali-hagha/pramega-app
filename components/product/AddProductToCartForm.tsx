@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -13,13 +13,23 @@ interface Props {
 }
 
 const AddProductToCartForm = ({ product }: Props) => {
-  const {
-    handleAddToCart,
-    handleDecrementProductCount,
-    handleIncrementProductCount,
-    productCount,
-    isMutationLoading,
-  } = useCartFrom(product.id);
+  const { handleAddToCart, isMutationLoading } = useCartFrom(product.id);
+
+  const [productCount, setProductCount] = useState(1);
+
+  const handleIncrementProductCount = () => {
+    setProductCount(prevCount => {
+      if (prevCount < 6) return prevCount + 1;
+      return prevCount;
+    });
+  };
+
+  const handleDecrementProductCount = () => {
+    setProductCount(prevCount => {
+      if (prevCount <= 1) return prevCount;
+      return prevCount - 1;
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -28,7 +38,7 @@ const AddProductToCartForm = ({ product }: Props) => {
           disabled={isMutationLoading}
           style={[styles.btn, isMutationLoading && styles.disabled]}
           activeOpacity={0.7}
-          onPress={handleAddToCart}
+          onPress={() => handleAddToCart(productCount)}
         >
           <Text style={styles.btnText}>Add to cart</Text>
           {isMutationLoading ? (

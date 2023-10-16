@@ -35,11 +35,11 @@ const ProductDetailsPage = () => {
 
   const badgeCount = cartData?.attributes.products.data.length;
 
-  const currentProductCartCount = cartData?.attributes.productCount.find(
+  const currentProductCartData = cartData?.attributes.productCount.find(
     p => p.id.toString() === id
-  )?.quantity;
+  );
 
-  console.log(currentProductCartCount);
+  console.log(currentProductCartData);
 
   const {
     data: product,
@@ -84,8 +84,8 @@ const ProductDetailsPage = () => {
             <ProductDetails product={product} />
             <View style={styles.filler}></View>
           </ScrollView>
-          {currentProductCartCount ? (
-            <EditProductInCartForm productCount={currentProductCartCount} />
+          {currentProductCartData ? (
+            <EditProductInCartForm productCountData={currentProductCartData} />
           ) : (
             <AddProductToCartForm product={product} />
           )}

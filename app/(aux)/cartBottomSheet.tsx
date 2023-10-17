@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import CustomBottomSheet from '../../components/ui/bottomSheet/CustomBottomSheet';
 import { useQuery } from '@tanstack/react-query';
@@ -18,8 +18,11 @@ const cartBottomSheet = () => {
   });
 
   const getProductCount = (id: number, cartData: CartData) => {
-    return cartData.attributes.productCount.find(count => count.id === id)!
-      .quantity;
+    const count = cartData.attributes.productCount.find(
+      count => count.id === id
+    )?.quantity;
+
+    return count ?? 0;
   };
 
   return (

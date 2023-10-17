@@ -13,14 +13,15 @@ const Badge = ({ count, top, right }: Props) => {
     top: top ? top : 0,
     right: right ? right : 0,
   };
+
+  if (!count || count === 0) {
+    return null;
+  }
+
   return (
-    <>
-      {count && (
-        <View style={[styles.badge, positionStyle]}>
-          <Text style={styles.badgeText}>{count}</Text>
-        </View>
-      )}
-    </>
+    <View style={[styles.badge, positionStyle]}>
+      <Text style={styles.badgeText}>{count}</Text>
+    </View>
   );
 };
 

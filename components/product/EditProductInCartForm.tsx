@@ -1,6 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -51,11 +56,23 @@ const EditProductInCartForm = ({
         )}
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.text}>Items in cart:</Text>
-          <Text style={[styles.countText, styles.text]}>{quantity}</Text>
+          {isMutationLoading ? (
+            <ActivityIndicator
+              color={COLORS.gray_700}
+              size={'small'}
+              style={{ width: SIZES.xl }}
+            />
+          ) : (
+            <Text style={[styles.countText, styles.text]}>{quantity}</Text>
+          )}
         </View>
         <TouchableOpacity
           onPress={() => handleIncrementProductCount(quantity)}
-          style={styles.counterBtn}
+          disabled={quantity >= 6}
+          style={[
+            styles.counterBtn,
+            quantity >= 6 && styles.counterBtnDisabled,
+          ]}
           activeOpacity={0.7}
         >
           <FontAwesome5 name="plus" size={SIZES.md} color={COLORS.gray_700} />
@@ -91,6 +108,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.white,
+  },
+  counterBtnDisabled: {
+    opacity: 0.3,
   },
   deleteBtn: {
     padding: SIZES.sm,

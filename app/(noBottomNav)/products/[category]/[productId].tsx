@@ -39,8 +39,6 @@ const ProductDetailsPage = () => {
     p => p.id.toString() === id
   );
 
-  console.log(currentProductCartData);
-
   const {
     data: product,
     isLoading,

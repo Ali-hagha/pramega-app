@@ -1,5 +1,4 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { router } from 'expo-router';
 import 'react-native-get-random-values';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -50,7 +49,7 @@ export const useCartFrom = (productId: number) => {
 
     createNewCartMutation.mutate(cartData, {
       onSuccess: newCartData => {
-        handleMutationSuccess(newCartData);
+        updateCartCacheFromMutation(newCartData);
       },
     });
   };
@@ -68,7 +67,7 @@ export const useCartFrom = (productId: number) => {
       { data: updatedCartData, cartId },
       {
         onSuccess: newCartData => {
-          handleMutationSuccess(newCartData);
+          updateCartCacheFromMutation(newCartData);
         },
       }
     );
@@ -82,7 +81,7 @@ export const useCartFrom = (productId: number) => {
       { data: updatedCartData, cartId },
       {
         onSuccess: newCartData => {
-          handleMutationSuccess(newCartData);
+          updateCartCacheFromMutation(newCartData);
         },
       }
     );
@@ -159,9 +158,8 @@ export const useCartFrom = (productId: number) => {
     return { exitingProductIds, existingProductCounts };
   };
 
-  const handleMutationSuccess = (newCartData: CartData) => {
+  const updateCartCacheFromMutation = (newCartData: CartData) => {
     queryClient.setQueryData(['cartById', cartId], newCartData);
-    router.push('/cartBottomSheet');
   };
 
   return {

@@ -1,10 +1,22 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
+import { router } from 'expo-router';
+
+import { FontAwesome5 } from '@expo/vector-icons';
+
 import { Product } from '../../types/types';
 import { COLORS, FONTS, SIZES } from '../../constants';
 import { currencyFormatter } from '../../helpers';
 import CartProductCounter from './CartProductCounter';
-import { router } from 'expo-router';
+import { useCartFrom } from '@/hooks/useCartForm';
 
 interface Props {
   product: Product;
@@ -14,6 +26,10 @@ interface Props {
 const strapiUrl = process.env.EXPO_PUBLIC_STRAPI_URL;
 
 const CartItem = ({ product, count }: Props) => {
+  const { handleDeleteProductFromCart, isMutationLoading } = useCartFrom(
+    product.id
+  );
+
   const imgUrl = `${strapiUrl}${product.attributes.primaryImage.data.attributes.formats.small.url}`;
 
   const handleItemPress = () => {
@@ -50,13 +66,42 @@ const CartItem = ({ product, count }: Props) => {
         </View>
       </Pressable>
       <View style={styles.info}>
-        <Text style={styles.category}>{product.attributes.category}</Text>
-        <Text style={styles.name}>{product.attributes.name}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+          }}
+        >
+          <View>
+            <Text style={styles.category}>{product.attributes.category}</Text>
+            <Text style={styles.name}>{product.attributes.name}</Text>
+          </View>
+          {isMutationLoading ? (
+            <ActivityIndicator
+              color={COLORS.gray_400}
+              size={'small'}
+              style={{ width: SIZES.xl }}
+            />
+          ) : (
+            <TouchableOpacity
+              onPress={handleDeleteProductFromCart}
+              style={styles.deleteBtn}
+              activeOpacity={0.7}
+            >
+              <FontAwesome5
+                name="trash-alt"
+                size={SIZES.lg}
+                color={COLORS.gray_400}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
         <View style={styles.priceWrapper}>
           <Text style={styles.price}>
             {currencyFormatter.format(product.attributes.price)}
           </Text>
-          <CartProductCounter count={count} />
+          <CartProductCounter count={count} productId={product.id} />
         </View>
       </View>
     </View>
@@ -92,6 +137,9 @@ const styles = StyleSheet.create({
     color: COLORS.gray_700,
     fontSize: SIZES.mdp,
     marginBottom: SIZES.xxs,
+  },
+  deleteBtn: {
+    padding: SIZES.xxs,
   },
   price: {
     fontFamily: FONTS.Montserrat_700,

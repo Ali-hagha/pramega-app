@@ -1,18 +1,23 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetFooter,
+  BottomSheetFooterProps,
+} from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 
 interface Props {
   children: React.ReactNode;
+  footerComponent?: React.ReactNode;
 }
 
-const CustomBottomSheet = ({ children }: Props) => {
+const CustomBottomSheet = ({ children, footerComponent }: Props) => {
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
-  const snapPoints = useMemo(() => ['80%'], []);
+  const snapPoints = useMemo(() => ['80%', '95%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -33,6 +38,13 @@ const CustomBottomSheet = ({ children }: Props) => {
     []
   );
 
+  const renderFooter = useCallback(
+    (props: BottomSheetFooterProps) => (
+      <BottomSheetFooter {...props}>{footerComponent}</BottomSheetFooter>
+    ),
+    []
+  );
+
   // renders
   return (
     <View style={styles.container}>
@@ -43,6 +55,7 @@ const CustomBottomSheet = ({ children }: Props) => {
         onChange={handleSheetChanges}
         backdropComponent={renderBackdrop}
         enablePanDownToClose={true}
+        footerComponent={renderFooter}
       >
         {children}
       </BottomSheet>

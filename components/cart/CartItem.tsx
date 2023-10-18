@@ -6,17 +6,17 @@ import {
   Pressable,
   TouchableOpacity,
   ActivityIndicator,
-} from 'react-native';
-import React from 'react';
-import { router } from 'expo-router';
+} from "react-native";
+import React from "react";
+import { router } from "expo-router";
 
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 
-import { Product } from '../../types/types';
-import { COLORS, FONTS, SIZES } from '../../constants';
-import { currencyFormatter } from '../../helpers';
-import CartProductCounter from './CartProductCounter';
-import { useCartFrom } from '@/hooks/useCartForm';
+import { Product } from "../../types/types";
+import { COLORS, FONTS, SIZES } from "../../constants";
+import { currencyFormatter } from "../../helpers";
+import CartProductCounter from "./CartProductCounter";
+import { useCartFrom } from "@/hooks/useCartForm";
 
 interface Props {
   product: Product;
@@ -34,7 +34,7 @@ const CartItem = ({ product, count }: Props) => {
 
   const handleItemPress = () => {
     router.replace({
-      pathname: '/products/[category]/[productId]',
+      pathname: "/products/[category]/[productId]",
       params: {
         category: product.attributes.category,
         productId: product.attributes.productId,
@@ -59,7 +59,7 @@ const CartItem = ({ product, count }: Props) => {
             width={120}
             height={120}
             style={{
-              resizeMode: 'contain',
+              resizeMode: "contain",
               borderRadius: SIZES.md,
             }}
           />
@@ -68,9 +68,9 @@ const CartItem = ({ product, count }: Props) => {
       <View style={styles.info}>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
           }}
         >
           <View>
@@ -80,7 +80,7 @@ const CartItem = ({ product, count }: Props) => {
           {isMutationLoading ? (
             <ActivityIndicator
               color={COLORS.gray_400}
-              size={'small'}
+              size={"small"}
               style={{ width: SIZES.xl }}
             />
           ) : (
@@ -99,7 +99,7 @@ const CartItem = ({ product, count }: Props) => {
         </View>
         <View style={styles.priceWrapper}>
           <Text style={styles.price}>
-            {currencyFormatter.format(product.attributes.price)}
+            {currencyFormatter.format(product.attributes.price * count)}
           </Text>
           <CartProductCounter count={count} productId={product.id} />
         </View>
@@ -112,7 +112,7 @@ export default CartItem;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: SIZES.xxs,
     backgroundColor: COLORS.white,
   },
@@ -121,10 +121,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   priceWrapper: {
-    marginTop: 'auto',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    marginTop: "auto",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   category: {
     fontFamily: FONTS.Montserrat_500,

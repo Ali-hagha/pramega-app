@@ -38,13 +38,9 @@ const CustomBottomSheet = ({ children, footerComponent }: Props) => {
     []
   );
 
-  const renderFooter = useCallback(
-    (props: BottomSheetFooterProps) => (
-      <BottomSheetFooter {...props}>{footerComponent}</BottomSheetFooter>
-    ),
-    []
+  const renderFooter = (props: BottomSheetFooterProps) => (
+    <BottomSheetFooter {...props}>{footerComponent}</BottomSheetFooter>
   );
-
   // renders
   return (
     <View style={styles.container}>

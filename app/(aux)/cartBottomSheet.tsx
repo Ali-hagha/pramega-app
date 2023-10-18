@@ -7,6 +7,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { useCartContextData } from '../../hooks/useCartContextData';
 import { CartData } from '../../types/types';
 import CartItem from '../../components/cart/CartItem';
+import CartEmptyComponent from '@/components/cart/CartEmptyComponent';
 
 const cartBottomSheet = () => {
   const { cartId } = useCartContextData();
@@ -30,6 +31,7 @@ const cartBottomSheet = () => {
       <View style={{ flex: 1 }}>
         {isSuccess && (
           <FlatList
+          ListEmptyComponent={<CartEmptyComponent />}
             data={cartData.attributes.products.data}
             renderItem={({ item }) => (
               <CartItem

@@ -20,7 +20,7 @@ export const useCartFrom = (productId: number) => {
 
   const handleAddToCart = (productCount: number) => {
     if (cartUniqueId && cartId && cartData) {
-      updateExistingCart(cartData, productCount);
+      addProductToCart(cartData, productCount);
     } else {
       createNewCart(productCount);
     }
@@ -28,13 +28,13 @@ export const useCartFrom = (productId: number) => {
 
   const handleIncrementProductCount = (productCount: number) => {
     if (cartData && productCount < 6) {
-      updateExistingCart(cartData, productCount + 1);
+      updateProductCount(cartData, productCount + 1);
     }
   };
 
   const handleDecrementProductCount = (productCount: number) => {
     if (cartData && productCount > 1) {
-      updateExistingCart(cartData, productCount - 1);
+      updateProductCount(cartData, productCount - 1);
     }
   };
 
@@ -48,17 +48,17 @@ export const useCartFrom = (productId: number) => {
     const cartData = buildNewCartObject(productCount);
 
     createNewCartMutation.mutate(cartData, {
-      onSuccess: newCartData => {
+      onSuccess: (newCartData) => {
         updateCartCacheFromMutation(newCartData);
       },
     });
   };
 
-  const updateExistingCart = (
+  const addProductToCart = (
     existingCartData: CartData,
     productCount: number
   ) => {
-    const updatedCartData = buildUpdatedCartObject(
+    const updatedCartData = buildAddedProductCartObject(
       existingCartData,
       productCount
     );
@@ -66,7 +66,26 @@ export const useCartFrom = (productId: number) => {
     updateCartMutation.mutate(
       { data: updatedCartData, cartId },
       {
-        onSuccess: newCartData => {
+        onSuccess: (newCartData) => {
+          updateCartCacheFromMutation(newCartData);
+        },
+      }
+    );
+  };
+
+  const updateProductCount = (
+    existingCartData: CartData,
+    productCount: number
+  ) => {
+    const updatedCartData = buildUpdatedCountCartObject(
+      existingCartData,
+      productCount
+    );
+
+    updateCartMutation.mutate(
+      { data: updatedCartData, cartId },
+      {
+        onSuccess: (newCartData) => {
           updateCartCacheFromMutation(newCartData);
         },
       }
@@ -75,16 +94,42 @@ export const useCartFrom = (productId: number) => {
 
   const deleteProductFromCart = (existingCartData: CartData) => {
     const updatedCartData =
-      builCartObjectWithoutCurrentProduct(existingCartData);
+      buildCartObjectWithoutCurrentProduct(existingCartData);
 
     updateCartMutation.mutate(
       { data: updatedCartData, cartId },
       {
-        onSuccess: newCartData => {
+        onSuccess: (newCartData) => {
           updateCartCacheFromMutation(newCartData);
         },
       }
     );
+  };
+
+  const buildAddedProductCartObject = (
+    existingCartData: CartData,
+    productCount: number
+  ): CartPostData => {
+    const productIdsInCart = existingCartData.attributes.products.data.map(
+      (p) => p.id
+    );
+    const productCountInCart = existingCartData.attributes.productCount;
+
+    const updatedCartData: CartPostData = {
+      data: {
+        products: [...productIdsInCart, productId],
+        productCount: [
+          ...productCountInCart,
+          {
+            id: productId,
+            quantity: productCount,
+          },
+        ],
+        cartUniqueId: cartUniqueId,
+      },
+    };
+
+    return updatedCartData;
   };
 
   const buildNewCartObject = (productCount: number): CartPostData => {
@@ -105,18 +150,20 @@ export const useCartFrom = (productId: number) => {
     return newCartObject;
   };
 
-  const buildUpdatedCartObject = (
+  const buildUpdatedCountCartObject = (
     existingCartData: CartData,
     productCount: number
   ): CartPostData => {
-    const { existingProductCounts, exitingProductIds } =
-      getCartWithoutCurrentProduct(existingCartData);
+    const productIdsInCart = existingCartData.attributes.products.data.map(
+      (p) => p.id
+    );
+    const productCountInCart = existingCartData.attributes.productCount;
 
     const updatedCartData: CartPostData = {
       data: {
-        products: [...exitingProductIds, productId],
+        products: productIdsInCart,
         productCount: [
-          ...existingProductCounts,
+          ...productCountInCart.filter((p) => p.id !== productId),
           {
             id: productId,
             quantity: productCount,
@@ -129,7 +176,7 @@ export const useCartFrom = (productId: number) => {
     return updatedCartData;
   };
 
-  const builCartObjectWithoutCurrentProduct = (existingCartData: CartData) => {
+  const buildCartObjectWithoutCurrentProduct = (existingCartData: CartData) => {
     const { existingProductCounts, exitingProductIds } =
       getCartWithoutCurrentProduct(existingCartData);
 
@@ -147,12 +194,12 @@ export const useCartFrom = (productId: number) => {
 
   const getCartWithoutCurrentProduct = (existingCartData: CartData) => {
     const exitingProductIds = existingCartData.attributes.products.data
-      .filter(p => p.id !== productId)
-      .map(p => p.id);
+      .filter((p) => p.id !== productId)
+      .map((p) => p.id);
 
     const existingProductCounts =
       existingCartData.attributes.productCount.filter(
-        product => product.id !== productId
+        (product) => product.id !== productId
       );
 
     return { exitingProductIds, existingProductCounts };

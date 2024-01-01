@@ -1,16 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import { currencyFormatter } from '@/helpers';
-import { COLORS, FONTS, SIZES } from '@/constants';
-import { useCartContextData } from '@/hooks/useCartContextData';
-import { useQuery } from '@tanstack/react-query';
-import getCartById from '@/api/getCartById';
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { currencyFormatter } from "@/helpers";
+import { COLORS, FONTS, SIZES } from "@/constants";
+import { useCartContextData } from "@/hooks/useCartContextData";
+import { useQuery } from "@tanstack/react-query";
+import getCartById from "@/api/getCartById";
 
 const CartCheckoutFooter = () => {
   const { cartId } = useCartContextData();
 
   const { data: cartData, isSuccess } = useQuery({
-    queryKey: ['cartById', cartId],
+    queryKey: ["cartById", cartId],
     queryFn: () => getCartById(cartId),
     enabled: false,
   });
@@ -20,6 +20,10 @@ const CartCheckoutFooter = () => {
   }
 
   const isCartEmpty = cartData.attributes.products.data.length === 0;
+
+  if (isCartEmpty) {
+    return null;
+  }
 
   const products = cartData.attributes.products.data;
   const getProductPrice = (id: number) => {
@@ -42,7 +46,7 @@ const CartCheckoutFooter = () => {
         disabled={isCartEmpty}
         style={[styles.btn, isCartEmpty && styles.btnDisabled]}
         activeOpacity={0.7}
-        onPress={() => console.log('cart checkout')}
+        onPress={() => console.log("cart checkout")}
       >
         <Text style={styles.btnText}>Checkout</Text>
       </TouchableOpacity>
@@ -54,9 +58,9 @@ export default CartCheckoutFooter;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: SIZES.sm,
     paddingVertical: SIZES.xxs,
     backgroundColor: COLORS.white,
@@ -75,10 +79,10 @@ const styles = StyleSheet.create({
   btn: {
     borderRadius: SIZES.md,
     backgroundColor: COLORS.gray_700,
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: SIZES.md,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
     marginStart: SIZES.xl,
   },
